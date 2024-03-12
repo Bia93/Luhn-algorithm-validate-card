@@ -39,16 +39,20 @@ const batch = [
 const validateCred = (arr) => {
   let total = 0;
   for (let i = arr.length - 1; i >= 0; i--) {
-    let value = arr[i];
+    //iteram de la drapta la stanga
+    let value = arr[i]; //mutam iterarile in value
     if ((arr.length - 1 - i) % 2 === 1) {
-      value *= 2;
+      //trebuie dublat, dar fara prima cifra de la dreapta, deci de la index[1]
+      value *= 2; //se dubleaza
       if (value > 9) {
+        //trebuie vazt daca suma numerelor dublate e mai mare ca 9 si daca e scade 9 ex 9+9=18 -> 1+8=9
         value -= 9;
       }
     }
-    total += value;
+    total += value; //adunam toate valorile intr un total
   }
   if (total % 10 === 0) {
+    //verificam daca suma e divizila cu 10, daca e divizibila cu 10 inseamna ca cardul e valid
     return true;
   } else {
     return false;
@@ -58,10 +62,12 @@ console.log(validateCred(valid3));
 
 // TO SEE THE INVALID CARDS
 function findInvalidCards(batch) {
-  let invalidCards = [];
+  let invalidCards = []; //creeam un array nou ca sa avem unde sa le punem pe cele noi
   for (let i = 0; i < batch.length; i++) {
+    //iteram arrayurile
     let cardNumber = batch[i];
     if (!validateCred(cardNumber)) {
+      //daca cardul nu e valid, le dam push in arrayul de cardul invalide
       invalidCards.push(cardNumber);
     }
   }
@@ -75,7 +81,7 @@ function idInvalidCardCompanies(invalidBatch) {
   let companies = [];
   for (let i = 0; i < invalidBatch.length; i++) {
     switch (invalidBatch[i][0]) {
-      case 3:
+      case 3: //din tabel facut pe hartie
         if (companies.indexOf("Amex") === -1) {
           //If the first digit is 3, it checks if "Amex" is already in the companies array. If not, it adds "Amex" to the array.
           companies.push("Amex");
